@@ -225,7 +225,25 @@ Setting up DUNE UPS area... /cvmfs/dune.opensciencegrid.org/products/dune/
 ~~~
 {: .output}
 
-This uses a system called ups which allows access to consisted version controlled codes. Once you've run setup_dune.sh you will be able to setup particular versions of the DUNE code.  We'll do that in the course itself. 
+This uses a system called ups which allows access to consisted version-controlled codes. Once you've run setup_dune.sh you will be able to setup particular versions of the DUNE code.  We'll do that in the course itself. 
+
+but if you really want to rush in:
+
+try:
+
+~~~
+export DUNEVERSION=v09_65_02d00
+export DUNEQUALIFIER=e20:prof
+setup dunesw $DUNEVERSION -q$DUNEQUALIFIER
+~~~
+{: .language-bash}
+
+and then try to launch root
+
+~~~
+root
+~~~
+{: .language-bash}
 
 > ## How to make custom setup command with aliases
 > Not familiar with aliases? Read below.
