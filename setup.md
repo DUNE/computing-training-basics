@@ -161,9 +161,11 @@ Now you can try to log into a machine at Fermilab. There are now 15 different ma
 **How to connect?** The ssh command does the job. The -Y option turns on the xwindow protocol so that you can have graphical display and keyboard/mouse handling (quite useful). But if you have the line "ForwardX11Trusted yes" in your ssh config file, this will do the -Y option. For connecting to e.g. dunegpvm07, the command is:
 
 ~~~
-ssh username@dunegpvmXX.fnal.gov
+ssh -Y username@dunegpvmXX.fnal.gov
 ~~~
 {: .language-bash}
+
+The `-Y` should enable X-windows for you.
 
 where XX is a number from 01 to 15. 
 If you experience long delays in loading programs or graphical output, you can try connecting with VNC. More info: [Using VNC Connections on the dunegpvms][dunegpvm-vnc].
@@ -223,6 +225,7 @@ Setting up DUNE UPS area... /cvmfs/dune.opensciencegrid.org/products/dune/
 ~~~
 {: .output}
 
+This uses a system called ups which allows access to consisted version controlled codes. Once you've run setup_dune.sh you will be able to setup particular versions of the DUNE code.  We'll do that in the course itself. 
 
 > ## How to make custom setup command with aliases
 > Not familiar with aliases? Read below.
