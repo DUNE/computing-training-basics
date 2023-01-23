@@ -161,9 +161,11 @@ Now you can try to log into a machine at Fermilab. There are now 15 different ma
 **How to connect?** The ssh command does the job. The -Y option turns on the xwindow protocol so that you can have graphical display and keyboard/mouse handling (quite useful). But if you have the line "ForwardX11Trusted yes" in your ssh config file, this will do the -Y option. For connecting to e.g. dunegpvm07, the command is:
 
 ~~~
-ssh username@dunegpvmXX.fnal.gov
+ssh -Y username@dunegpvmXX.fnal.gov
 ~~~
 {: .language-bash}
+
+The `-Y` should enable X-windows for you.
 
 where XX is a number from 01 to 15. 
 If you experience long delays in loading programs or graphical output, you can try connecting with VNC. More info: [Using VNC Connections on the dunegpvms][dunegpvm-vnc].
@@ -223,6 +225,25 @@ Setting up DUNE UPS area... /cvmfs/dune.opensciencegrid.org/products/dune/
 ~~~
 {: .output}
 
+This uses a system called ups which allows access to consisted version-controlled codes. Once you've run setup_dune.sh you will be able to setup particular versions of the DUNE code.  We'll do that in the course itself. 
+
+but if you really want to rush in:
+
+try:
+
+~~~
+export DUNEVERSION=v09_65_02d00
+export DUNEQUALIFIER=e20:prof
+setup dunesw $DUNEVERSION -q$DUNEQUALIFIER
+~~~
+{: .language-bash}
+
+and then try to launch root
+
+~~~
+root
+~~~
+{: .language-bash}
 
 > ## How to make custom setup command with aliases
 > Not familiar with aliases? Read below.
@@ -249,15 +270,16 @@ Setting up DUNE UPS area... /cvmfs/dune.opensciencegrid.org/products/dune/
 ## 5. Exercise! (it's easy)
 This exercise will help organizers see if you reached this step or need help.
 
-1) Start in your home area `cd ~` on the DUNE machine (normally CERN or FNAL) and create the file ```dune_presetup_202205.sh```.  Write in it the following:
+1) Start in your home area `cd ~` on the DUNE machine (normally CERN or FNAL) and create the file ```dune_presetup_202301.sh```.  Write in it the following:
 ~~~
-export DUNESW_VERSION=v09_48_01d00
+export DUNESW_VERSION=v09_65_02d00
+export DUNEQUALIFIER=e20:prof
 alias dune_setup='source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh'
 ~~~
 {: .source}
 When you start the training, you will have to source this file:
 ~~~
-source ~/dune_presetup_202205.sh
+source ~/dune_presetup_202301.sh
 ~~~
 {: .language-bash}
 Then, to setup DUNE, use the created alias:
