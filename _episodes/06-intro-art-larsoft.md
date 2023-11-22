@@ -389,7 +389,7 @@ export USER=`whoami`
  cd /dune/data/users/$USER/tutorialtest
  source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
  setup dunesw v09_48_01d00 -q e20:prof
- lar -n 1 -c mcc12_gen_protoDune_beam_cosmics_p1GeV.fcl -o gen.root
+ TMPDIR=/tmp lar -n 1 -c mcc12_gen_protoDune_beam_cosmics_p1GeV.fcl -o gen.root
  lar -n 1 -c protoDUNE_refactored_g4_stage1.fcl gen.root -o g4_stage1.root
  lar -n 1 -c protoDUNE_refactored_g4_stage2_sce_datadriven.fcl g4_stage1.root -o g4_stage2.root
  lar -n 1 -c protoDUNE_refactored_detsim_stage1.fcl g4_stage2.root -o detsim_stage1.root
@@ -401,7 +401,7 @@ export USER=`whoami`
 
 ~~~
 {: .source}
-
+Note added November 22, 2023: The construct “TMPDIR=/tmp lar …” defines the environment variable TMPDIR only for the duration of the subsequent command on the line. This is needed for the tutorial example because the mcc12 gen stage copies a 2.9 GB file (see below – it’s the one we had to copy over to CERN) to /var/tmp using ifdh’s default temporary location. But the dunegpvm machines as of November 2023 seem to rarely have 2.9 GB of space in /var/tmp and you get a “no space left on device” error. The newer prod4 versions of the fcls point to a newer version of the beam particle generator that can stream this file using XRootD instead of copying it with ifdh. But the streaming flag is turned off by default in the prod4 fcl for the version of dunesw used in this tutorial, and so this is the minimal solution.
 #### Running at CERN
 
 This example puts all files in a subdirectory of your home directory. There is an input file for the ProtoDUNE-SP beamline simulation that is copied over and you need to point the generation job at it. The above sequence of commands will work at CERN if you have a Fermilab grid proxy, but not everyone signed up for the tutorial can get one of these yet, so we copied the necessary file over and adjusted a fcl file to point at it. It also runs faster with the local copy of the input file than the above workflow which copies it.
